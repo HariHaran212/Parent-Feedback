@@ -20,12 +20,21 @@
             width: 70%;
             border-bottom: .5px solid grey;
         }
+        /* input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="email"]:focus{
+            box-shadow: 0px 3px 5px -1px rgb(136, 225, 255);
+        } */
         textarea{
             border-radius: 5px;
             border: .5px solid grey;
             outline: 0;
             margin-left: 5%;
             width: 70%;
+        }
+        select{
+            border: none;
+            outline: 0;
         }
         .question{
             background-color: rgba(250, 250, 250, 50);
@@ -164,19 +173,33 @@
     </nav>
     
     <section >
-        <form action="" class="justify-content-center">
+        <form action="" method="post" class="justify-content-center">
             <div class="sec-a container" id="sec-a">
                 <h4>Part - A</h4>
+
                 <div class="question">
                     <p id="p_name">1.	Name of the parent / Guardian <span class="req">*</span></p>
                     <input type="text" name="parent_name" id="parent_name" placeholder="Enter full name">
                 </div>
+
                 <div class="question">
                     <p id="s_name">2.	Name of the Student / Ward enrolled in the college <span class="req">*</span></p>
                     <input type="text" name="student_name" id="student_name" placeholder="Enter full name">
                 </div>
+
                 <div class="question">
-                    <p>3.  Communication Details</p>
+                    <p id="batch_text">3.	Batch of the Student / Ward enrolled <span class="req">*</span></p>
+                    <select class="form-select" id="batch" name="batch">
+                        <option value="" disabled selected>--Select--</option>
+                        <option value="2023">2019-2023</option>
+                        <option value="2024">2020-2024</option>
+                        <option value="2025">2021-2025</option>
+                        <option value="2026">2022-2026</option>
+                    </select>
+                </div>
+
+                <div class="question">
+                    <p>4.  Communication Details</p>
                     <div class="lft-50">
                         <p id="c_address">Address for Communication <span class="req">*</span></p>
                         <textarea name="communication_address" id="communication_address" placeholder="Enter your address"></textarea>
@@ -192,15 +215,15 @@
                     </div>
                 </div>
                 <div class="question">
-                <p id="aim">4.	The aim / aspirations of your ward after graduation <span class="req">*</span></p>
+                <p id="aim">5.	The aim / aspirations of your ward after graduation <span class="req">*</span></p>
                     <ul>
-                        <li><label><input type="radio" class="form-check-input" name="aim" value="1"> Employment </label></li>
-                        <li><label><input type="radio" class="form-check-input" name="aim" value="2"> Higher studies </label></li>
-                        <li><label><input type="radio" class="form-check-input" name="aim" value="3"> Own industry </label></li>
-                        <li><label><input type="radio" class="form-check-input" name="aim" value="4"> Govt. Service </label></li>
-                        <li><label><input type="radio" class="form-check-input" name="aim" id="others" value="5"> Others </label></li>
+                        <li><label><input type="radio" class="form-check-input" name="aim" value="Employment"> Employment </label></li>
+                        <li><label><input type="radio" class="form-check-input" name="aim" value="Higher studies"> Higher studies </label></li>
+                        <li><label><input type="radio" class="form-check-input" name="aim" value="Own industry"> Own industry </label></li>
+                        <li><label><input type="radio" class="form-check-input" name="aim" value="Govt. Service"> Govt. Service </label></li>
+                        <li><label><input type="radio" class="form-check-input" name="aim" id="others"> Others </label></li>
                     </ul>
-                    <input type="text" id="others_text" class="d-none">
+                    <input type="text" id="others_text" name="aim" class="d-none"/>
                 </div>
                 <div class="d-flex justify-content-end mt-3">
                     <a href="#sec-b" type="button" class="btn btn-primary" onclick="next()">Next</a>
@@ -546,7 +569,7 @@
                 </div>
                 <div class="d-flex justify-content-between mt-3">
                         <a href="#sec-a" type="button" class="btn btn-primary d-flex justify-content-start" onclick="prev()">Previous</a>
-                        <input type="submit" class="btn btn-primary d-flex justify-content-end" onclick="validate(event)">
+                        <button type="submit" name="submit" class="btn btn-primary d-flex justify-content-end" onclick="validate(event)">Submit</button>
                 </div>
             </div>
         </form>
@@ -590,6 +613,16 @@
                 document.getElementById("s_name").style.color="black";
             }
 
+            // Batch Validation
+            if(document.getElementById('batch').value === ""){
+                flag=true;
+                document.getElementById("batch_text").style.color="red";
+            }
+            else{
+                document.getElementById("batch_text").style.color="black";
+            }
+
+
             // Communication Address Validation
             if(document.getElementById('communication_address').value == ""){
                 flag=true;
@@ -600,7 +633,11 @@
             }
 
             // Mobile Number Validation
-            if(document.getElementById('mobile_number').value == "" || validatePhoneNumber(document.getElementById('mobile_number').value)){
+            let mobile = document.getElementById('mobile_number').value;
+            if(mobile.substring(0,1)==='0'){
+                mobile = mobile.substring(1,mobile.length);
+            }
+            if(mobile === "" || validatePhoneNumber(mobile)){
                 flag=true;
                 document.getElementById("m_number").style.color="red";
             }
@@ -667,7 +704,6 @@
         }
 
         function validate(event){
-            event.preventDefault();
             let flag = false;
             let count = 0;
             let qn=['Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10'];
