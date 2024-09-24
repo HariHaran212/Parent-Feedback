@@ -4,10 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parent Feedback</title>
+    
+    <!-- Bootstrap CSS Import -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Poppins Font Import -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Local Style -->
     <style>
         body{
-            background-color: rgba(219, 242, 246, 0.866);
+            background-color: #F0F8FF;
+            font-family: 'poppins';
+        }
+        form{
+            margin: 50px 50px;
+        }
+        h4{
+            text-align: center;
+            padding-bottom: 20px;
+            margin-top: 20px;
         }
         input[type="text"],
         input[type="tel"],
@@ -16,80 +32,71 @@
             background-color: initial;
             border: none;
             outline: 0;
-            margin-left: 5%;
-            width: 70%;
+            margin-bottom: 20px;
+            width: 95%;
             border-bottom: .5px solid grey;
         }
         /* input[type="text"]:focus,
         input[type="tel"]:focus,
         input[type="email"]:focus{
-            box-shadow: 0px 3px 5px -1px rgb(136, 225, 255);
+            box-shadow: 0px 5px 5px 0px rgb(136, 225, 255);
         } */
         textarea{
-            border-radius: 5px;
-            border: .5px solid grey;
+            width: 95%;
+            height: 75px;
             outline: 0;
-            margin-left: 5%;
-            width: 70%;
+            border: .5px solid grey;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
         select{
             border: none;
             outline: 0;
         }
         .question{
-            background-color: rgba(250, 250, 250, 50);
-            box-shadow: 1px 1px 1px grey;
-            margin-top: 10px;
+            /* background-color: rgba(252, 252, 252, 252); */
+            /* background-image: url('Background.png');
+            background-repeat: no-repeat;
+            background-size:contain; */
+            box-shadow: 0px 0px 5px 2px rgb(229, 228, 228);
+            margin-top: 20px;
+            margin-bottom: 20px;
             padding: 20px;
             border-radius: 5px;
         }
-        .sec-b a,
-        input[type="submit"]{
-            padding-left: 20px;
-            padding-right: 20px;
+        span.req{
+            color: red;
         }
-        h4{
-            text-align: center;
-            padding-bottom: 20px;
-            margin-top: 20px;
-        }
+
+        /* Star Styles */
         .rb{
-            margin-left: 50px;
-            margin-top: -20px;
+            margin-top: -10px;
+        }
+        .rb input[type="radio"]{
+            display: none;
+        }
+        .rb label{
+            display: flex;
         }
         .rb-star {
             font-size: 2em;
             color: rgba(0, 0, 0, 0.5);
             cursor: pointer;
             transition: color 0.3s;
-            /* margin-left: 50px; */
         }
 
         .rb-star:hover,
         .rb-star.checked {
             color: rgb(235, 209, 18);
         }
-        .rb input[type="radio"]{
-            display: none;
-        }
-        form{
-            margin: 50px 50px;
-        }
-        .sec-a{
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 2px 2px 1px rgb(172, 172, 172);
-            margin: 0px auto;
-            width:fit-content;
-        }
+
+        /* Section Styles */
+        .sec-a,
         .sec-b{
             background-color: white;
-            padding: 30px;
             border-radius: 10px;
             box-shadow: 2px 2px 1px rgb(172, 172, 172);
             margin: 0px auto;
-            width:fit-content;
         }
         .sec-a ul{
             list-style-type: none;
@@ -97,33 +104,31 @@
         .sec-a input[type="radio"]{
             margin-right: 8px;
         }
-        span.req{
-            color: red;
+        .sec-a a,
+        .sec-b a,
+        .sec-b button{
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-bottom: 30px;
         }
-        .lft-50{
-            margin-left: 35px;
+
+        /* Others */
+        .logo{
+            height: 50px;
+            width: auto;
         }
-        .rb label{
-            display: flex;
-            /* margin-right: 20px; */
-            /* width: 100px; */
-        }
-        /* @media (max-width : 767px){
-            .rb-star{
-                margin-left: 20px;
-            }
+        /* .lft-25{
+            margin-left: 25px;
         } */
-        @media (max-width : 450px){
+
+        /* Media Query */
+        @media (max-width : 550px){
             form{
                 margin: 50px 20px;
-                margin-right: 20px;
             }
-            .lft-50{
-                margin-left: 20px;
-            }
-            .rb{
-                margin-left: 20px;
-            }
+            /* .lft-25{
+                margin-left: 10px;
+            } */
         }
         @media (max-width : 380px){
             form{
@@ -132,6 +137,7 @@
         }
     </style>
 
+    <!-- Star Rating Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const stars = document.querySelectorAll('.rb-star');
@@ -149,438 +155,461 @@
                             s.classList.remove('checked');
                         }
                     });
-
-                    // Update the hidden input value (if needed)
-                    const input = ratingContainer.querySelector('input[type="hidden"]');
-                    if (input) {
-                        input.value = value;
-                    }
                 });
             });
         });
     </script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="logo.jpg" alt="" width="75" height="25" class="d-inline-block align-text-top">
-            </a>
-        </div>
-        <div class="container-fluid">
-
-        </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
+        <a class="navbar-brand" href="#">
+            <img src="logo.jpg"  class="logo">
+        </a>
     </nav>
     
+    <!-- Form -->
     <section >
         <form action="" method="post" class="justify-content-center">
+            <!-- Part - A -->
             <div class="sec-a container" id="sec-a">
-                <h4>Part - A</h4>
+                <div class="row justify-content-center">
+                    <div class="col-xxl-8 col-xl-8 col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                        <h4>Part - A</h4>
 
-                <div class="question">
-                    <p id="p_name">1.	Name of the parent / Guardian <span class="req">*</span></p>
-                    <input type="text" name="parent_name" id="parent_name" placeholder="Enter full name">
-                </div>
+                        <!-- Question - 1 -->   
+                        <div class="question">
+                            <p id="p_name">1.	Name of the parent / Guardian <span class="req">*</span></p>
+                            <input type="text" name="parent_name" id="parent_name" placeholder="Enter full name">
+                        </div>
 
-                <div class="question">
-                    <p id="s_name">2.	Name of the Student / Ward enrolled in the college <span class="req">*</span></p>
-                    <input type="text" name="student_name" id="student_name" placeholder="Enter full name">
-                </div>
+                        <!-- Question - 2 -->   
+                        <div class="question">
+                            <p id="s_name">2.	Name of the Student / Ward enrolled in the college <span class="req">*</span></p>
+                            <input type="text" name="student_name" id="student_name" placeholder="Enter full name">
+                        </div>
 
-                <div class="question">
-                    <p id="batch_text">3.	Batch of the Student / Ward enrolled <span class="req">*</span></p>
-                    <select class="form-select" id="batch" name="batch">
-                        <option value="" disabled selected>--Select--</option>
-                        <option value="2023">2019-2023</option>
-                        <option value="2024">2020-2024</option>
-                        <option value="2025">2021-2025</option>
-                        <option value="2026">2022-2026</option>
-                    </select>
-                </div>
+                        <!-- Question -31 -->   
+                        <div class="question">
+                            <p id="batch_text">3.	Batch of the Student / Ward enrolled <span class="req">*</span></p>
+                            <select class="form-select" id="batch" name="batch">
+                                <option value="" disabled selected>--Select--</option>
+                                <option value="2023">2019-2023</option>
+                                <option value="2024">2020-2024</option>
+                                <option value="2025">2021-2025</option>
+                                <option value="2026">2022-2026</option>
+                            </select>
+                        </div>
 
-                <div class="question">
-                    <p>4.  Communication Details</p>
-                    <div class="lft-50">
-                        <p id="c_address">Address for Communication <span class="req">*</span></p>
-                        <textarea name="communication_address" id="communication_address" placeholder="Enter your address"></textarea>
+                        <!-- Question - 4 -->   
+                        <div class="question">
+                            <p>4.  Communication Details</p>
+                            <!-- <div class="lft-25"> -->
+                                <p id="c_address">Address for Communication <span class="req">*</span></p>
+                                <textarea name="communication_address" id="communication_address" placeholder="Enter your address"></textarea>
 
-                        <p id="m_number">Mobile Number <span class="req">*</span></p>
-                        <input type="tel" name="mobile_number" id="mobile_number" placeholder="Enter your phone number">
+                                <p id="m_number">Mobile Number <span class="req">*</span></p>
+                                <input type="tel" name="mobile_number" id="mobile_number" placeholder="Enter your phone number">
 
-                        <p id="l_number">Landline Number</p>
-                        <input type="tel" name="landline_number" id="landline_number" placeholder="Enter landline number">
+                                <p id="l_number">Landline Number</p>
+                                <input type="tel" name="landline_number" id="landline_number" placeholder="Enter landline number">
 
-                        <p id="e_id">E-mail ID (if any)</p>
-                        <input type="email" name="email_id" id="email_id" placeholder="Enter your email ID">
+                                <p id="e_id">E-mail ID (if any)</p>
+                                <input type="email" name="email_id" id="email_id" placeholder="Enter your email ID">
+                            <!-- </div> -->
+                        </div>
+                        
+                        <!-- Question - 5 -->   
+                        <div class="question">
+                        <p id="aim">5.	The aim / aspirations of your ward after graduation <span class="req">*</span></p>
+                            <ul>
+                                <li><label><input type="radio" class="form-check-input" name="aim" value="Employment"> Employment </label></li>
+                                <li><label><input type="radio" class="form-check-input" name="aim" value="Higher studies"> Higher studies </label></li>
+                                <li><label><input type="radio" class="form-check-input" name="aim" value="Own industry"> Own industry </label></li>
+                                <li><label><input type="radio" class="form-check-input" name="aim" value="Govt. Service"> Govt. Service </label></li>
+                                <li><label><input type="radio" class="form-check-input" name="aim" id="others"> Others </label></li>
+                            </ul>
+                            <input type="text" id="others_text" name="aim" class="d-none"/>
+                        </div>
+                        
+                        <!-- Next Button -->   
+                        <div class="d-flex justify-content-end mt-3">
+                            <a href="#sec-b" type="button" class="btn btn-primary" onclick="next()">Next</a>
+                        </div>
                     </div>
-                </div>
-                <div class="question">
-                <p id="aim">5.	The aim / aspirations of your ward after graduation <span class="req">*</span></p>
-                    <ul>
-                        <li><label><input type="radio" class="form-check-input" name="aim" value="Employment"> Employment </label></li>
-                        <li><label><input type="radio" class="form-check-input" name="aim" value="Higher studies"> Higher studies </label></li>
-                        <li><label><input type="radio" class="form-check-input" name="aim" value="Own industry"> Own industry </label></li>
-                        <li><label><input type="radio" class="form-check-input" name="aim" value="Govt. Service"> Govt. Service </label></li>
-                        <li><label><input type="radio" class="form-check-input" name="aim" id="others"> Others </label></li>
-                    </ul>
-                    <input type="text" id="others_text" name="aim" class="d-none"/>
-                </div>
-                <div class="d-flex justify-content-end mt-3">
-                    <a href="#sec-b" type="button" class="btn btn-primary" onclick="next()">Next</a>
                 </div>
             </div>
             
             <!-- Part - B -->
-            <div class="sec-b" id="sec-b">
-                <div class="">
-                    <h4>Part - B</h4>
-                    <p>Evaluate the following aspects of the college in terms capacity to provide quality education</p>
-                    
-                    <div class="question">
-                        <p id="err1">1.   The mission statement is of the college is defined in accordance with social and national context <span class="req">*</span></p>
-                            <div class="rb">
-                                <div class="d-flex gap-md-5 gap-3">
-                                    <label>
-                                        <input type="radio" name="Q1" value="1"/>
-                                        <div class="rb-star" data-value="1">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q1" value="2"/>
-                                        <div class="rb-star" data-value="2">★</div>
-                                    </label>
+            <div class="sec-b container" id="sec-b">
+                <div class="row justify-content-center">
+                    <div class="col-xxl-8 col-xl-8 col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                        <h4>Part - B</h4>
+                        <p>Evaluate the following aspects of the college in terms capacity to provide quality education</p>
+                        
+                        <!-- Star Rating Questions -->
 
-                                    <label>
-                                        <input type="radio" name="Q1" value="3"/>
-                                        <div class="rb-star" data-value="3">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q1" value="4"/>
-                                        <div class="rb-star" data-value="4">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q1" value="5"/>
-                                        <div class="rb-star" data-value="5">★</div>
-                                    </label>
+                        <!-- Question - 1 -->
+                        <div class="question">
+                            <p id="err1">1.   The mission statement is of the college is defined in accordance with social and national context <span class="req">*</span></p>
+                                <div class="rb">
+                                    <div class="d-flex gap-md-5 gap-3 justify-content-center">
+                                        <label>
+                                            <input type="radio" name="Q1" value="1"/>
+                                            <div class="rb-star" data-value="1">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q1" value="2"/>
+                                            <div class="rb-star" data-value="2">★</div>
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="Q1" value="3"/>
+                                            <div class="rb-star" data-value="3">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q1" value="4"/>
+                                            <div class="rb-star" data-value="4">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q1" value="5"/>
+                                            <div class="rb-star" data-value="5">★</div>
+                                        </label>
+                                    </div>
                                 </div>
+                        </div>
+                        
+                        <!-- Question - 2 -->
+                        <div class="question">
+                            <p id="err2">2.   The college website is well designed with easy access to information <span class="req">*</span></p>
+                                <div class="rb">
+                                    <div class="d-flex gap-md-5 gap-3 justify-content-center">
+                                        <label>
+                                            <input type="radio" name="Q2" value="1"/>
+                                            <div class="rb-star" data-value="1">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q2" value="2"/>
+                                            <div class="rb-star" data-value="2">★</div>
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="Q2" value="3"/>
+                                            <div class="rb-star" data-value="3">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q2" value="4"/>
+                                            <div class="rb-star" data-value="4">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q2" value="5"/>
+                                            <div class="rb-star" data-value="5">★</div>
+                                        </label>
+                                    </div>
+                                </div>
+                        </div>
+                        
+                        <!-- Question - 3 -->
+                        <div class="question">
+                            <p id="err3">3.   The college is responsive to the needs of the community <span class="req">*</span></p>
+                                <div class="rb">
+                                    <div class="d-flex gap-md-5 gap-3 justify-content-center">
+                                        <label>
+                                            <input type="radio" name="Q3" value="1"/>
+                                            <div class="rb-star" data-value="1">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q3" value="2"/>
+                                            <div class="rb-star" data-value="2">★</div>
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="Q3" value="3"/>
+                                            <div class="rb-star" data-value="3">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q3" value="4"/>
+                                            <div class="rb-star" data-value="4">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q3" value="5"/>
+                                            <div class="rb-star" data-value="5">★</div>
+                                        </label>
+                                    </div>
+                                </div>
+                        </div>
+                        
+                        <!-- Question - 4 -->
+                        <div class="question">
+                            <p id="err4">4.   The college is responsive to the needs of the market / industry <span class="req">*</span></p>
+                                <div class="rb">
+                                    <div class="d-flex gap-md-5 gap-3 justify-content-center">
+                                        <label>
+                                            <input type="radio" name="Q4" value="1"/>
+                                            <div class="rb-star" data-value="1">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q4" value="2"/>
+                                            <div class="rb-star" data-value="2">★</div>
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="Q4" value="3"/>
+                                            <div class="rb-star" data-value="3">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q4" value="4"/>
+                                            <div class="rb-star" data-value="4">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q4" value="5"/>
+                                            <div class="rb-star" data-value="5">★</div>
+                                        </label>
+                                    </div>
+                                </div>
+                        </div> 
+
+                        <!-- Question - 5 -->
+                        <div class="question">
+                            <p id="err5">5.   The college has a clear idea about the relevant demands and needs of the students <span class="req">*</span></p>
+                                <div class="rb">
+                                    <div class="d-flex gap-md-5 gap-3 justify-content-center">
+                                        <label>
+                                            <input type="radio" name="Q1" value="1"/>
+                                            <div class="rb-star" data-value="1">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q5" value="2"/>
+                                            <div class="rb-star" data-value="2">★</div>
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="Q5" value="3"/>
+                                            <div class="rb-star" data-value="3">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q5" value="4"/>
+                                            <div class="rb-star" data-value="4">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q5" value="5"/>
+                                            <div class="rb-star" data-value="5">★</div>
+                                        </label>
+                                    </div>
+                                </div>
+                        </div>    
+
+                        <!-- Question - 6 -->
+                        <div class="question">
+                            <p id="err6">6.   The  college has a clear idea about the relevant demands and needs of the emerging national trends <span class="req">*</span></p>
+                                <div class="rb">
+                                    <div class="d-flex gap-md-5 gap-3 justify-content-center">
+                                        <label>
+                                            <input type="radio" name="Q6" value="1"/>
+                                            <div class="rb-star" data-value="1">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q6" value="2"/>
+                                            <div class="rb-star" data-value="2">★</div>
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="Q6" value="3"/>
+                                            <div class="rb-star" data-value="3">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q6" value="4"/>
+                                            <div class="rb-star" data-value="4">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q6" value="5"/>
+                                            <div class="rb-star" data-value="5">★</div>
+                                        </label>
+                                    </div>
+                                </div>
+                        </div>
+
+                        <!-- Question - 7 -->
+                        <div class="question">
+                            <p id="err7">7.   The college has clear guidelines on consultancy and community outreach <span class="req">*</span></p>
+                                <div class="rb">
+                                    <div class="d-flex gap-md-5 gap-3 justify-content-center">
+                                        <label>
+                                            <input type="radio" name="Q7" value="1"/>
+                                            <div class="rb-star" data-value="1">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q7" value="2"/>
+                                            <div class="rb-star" data-value="2">★</div>
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="Q7" value="3"/>
+                                            <div class="rb-star" data-value="3">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q7" value="4"/>
+                                            <div class="rb-star" data-value="4">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q7" value="5"/>
+                                            <div class="rb-star" data-value="5">★</div>
+                                        </label>
+                                    </div>
+                                </div>
+                        </div>
+                             
+                        <!-- Question - 8 -->   
+                        <div class="question">
+                            <p id="err8">8.   The College has set policy and mechanism for college / industry collaboration <span class="req">*</span></p>
+                                <div class="rb">
+                                    <div class="d-flex gap-md-5 gap-3 justify-content-center">
+                                        <label>
+                                            <input type="radio" name="Q8" value="1"/>
+                                            <div class="rb-star" data-value="1">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q8" value="2"/>
+                                            <div class="rb-star" data-value="2">★</div>
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="Q8" value="3"/>
+                                            <div class="rb-star" data-value="3">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q8" value="4"/>
+                                            <div class="rb-star" data-value="4">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q8" value="5"/>
+                                            <div class="rb-star" data-value="5">★</div>
+                                        </label>
+                                    </div>
+                                </div>
+                        </div>
+
+                        <!-- Question - 9 -->   
+                        <div class="question">
+                            <p id="err9">9.   The college maintains active institutional linkages with research and academic institutions <span class="req">*</span></p>
+                                <div class="rb">
+                                    <div class="d-flex gap-md-5 gap-3 justify-content-center">
+                                        <label>
+                                            <input type="radio" name="Q9" value="1"/>
+                                            <div class="rb-star" data-value="1">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q9" value="2"/>
+                                            <div class="rb-star" data-value="2">★</div>
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="Q9" value="3"/>
+                                            <div class="rb-star" data-value="3">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q9" value="4"/>
+                                            <div class="rb-star" data-value="4">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q9" value="5"/>
+                                            <div class="rb-star" data-value="5">★</div>
+                                        </label>
+                                    </div>
+                                </div>
+                        </div>     
+                        
+                        <!-- Question - 10 -->      
+                        <div class="question">
+                            <p id="err10">10.  The college has institutional set up for community services <span class="req">*</span></p>
+                                <div class="rb">
+                                    <div class="d-flex gap-md-5 gap-3 justify-content-center">
+                                        <label>
+                                            <input type="radio" name="Q10" value="1"/>
+                                            <div class="rb-star" data-value="1">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q10" value="2"/>
+                                            <div class="rb-star" data-value="2">★</div>
+                                        </label>
+
+                                        <label>
+                                            <input type="radio" name="Q10" value="3"/>
+                                            <div class="rb-star" data-value="3">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q10" value="4"/>
+                                            <div class="rb-star" data-value="4">★</div>
+                                        </label>
+                                        
+                                        <label>
+                                            <input type="radio" name="Q10" value="5"/>
+                                            <div class="rb-star" data-value="5">★</div>
+                                        </label>
+                                    </div>
+                                </div>
+                        </div>
+
+                        <!-- Comments Session -->
+                        <h4>Comments</h4>
+                        <div>
+                            <div class="question">
+                                <p id="w_feedback">Major weaknesses of the institution that you have observed <span class="req">*</span></p>
+                                <textarea name="weakness_feedback" id="weakness_feedback"></textarea>
                             </div>
+
+                            <div class="question">
+                                <p id="i_feedback">Your suggestion to improve the learning environment, facilities in the college <span class="req">*</span></p>
+                                <textarea name="improvement_feedback" id="improvement_feedback"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Previous and Submit Button -->
+                        <div class="d-flex justify-content-between mt-3">
+                                <a href="#sec-a" type="button" class="btn btn-primary d-flex justify-content-start" onclick="prev()">Previous</a>
+                                <button type="submit" name="submit" class="btn btn-primary d-flex justify-content-end" onclick="validate(event)">Submit</button>
+                        </div>
                     </div>
-                    
-                    <div class="question">
-                        <p id="err2">2.   The college website is well designed with easy access to information <span class="req">*</span></p>
-                            <div class="rb">
-                                <div class="d-flex gap-md-5 gap-3">
-                                    <label>
-                                        <input type="radio" name="Q2" value="1"/>
-                                        <div class="rb-star" data-value="1">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q2" value="2"/>
-                                        <div class="rb-star" data-value="2">★</div>
-                                    </label>
-
-                                    <label>
-                                        <input type="radio" name="Q2" value="3"/>
-                                        <div class="rb-star" data-value="3">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q2" value="4"/>
-                                        <div class="rb-star" data-value="4">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q2" value="5"/>
-                                        <div class="rb-star" data-value="5">★</div>
-                                    </label>
-                                </div>
-                            </div>
-                    </div>
-                    
-                    <div class="question">
-                        <p id="err3">3.   The college is responsive to the needs of the community <span class="req">*</span></p>
-                            <div class="rb">
-                                <div class="d-flex gap-md-5 gap-3">
-                                    <label>
-                                        <input type="radio" name="Q3" value="1"/>
-                                        <div class="rb-star" data-value="1">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q3" value="2"/>
-                                        <div class="rb-star" data-value="2">★</div>
-                                    </label>
-
-                                    <label>
-                                        <input type="radio" name="Q3" value="3"/>
-                                        <div class="rb-star" data-value="3">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q3" value="4"/>
-                                        <div class="rb-star" data-value="4">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q3" value="5"/>
-                                        <div class="rb-star" data-value="5">★</div>
-                                    </label>
-                                </div>
-                            </div>
-                    </div>
-                    
-                    <div class="question">
-                        <p id="err4">4.   The college is responsive to the needs of the market / industry <span class="req">*</span></p>
-                            <div class="rb">
-                                <div class="d-flex gap-md-5 gap-3">
-                                    <label>
-                                        <input type="radio" name="Q4" value="1"/>
-                                        <div class="rb-star" data-value="1">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q4" value="2"/>
-                                        <div class="rb-star" data-value="2">★</div>
-                                    </label>
-
-                                    <label>
-                                        <input type="radio" name="Q4" value="3"/>
-                                        <div class="rb-star" data-value="3">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q4" value="4"/>
-                                        <div class="rb-star" data-value="4">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q4" value="5"/>
-                                        <div class="rb-star" data-value="5">★</div>
-                                    </label>
-                                </div>
-                            </div>
-                    </div> 
-
-                    <div class="question">
-                        <p id="err5">5.   The college has a clear idea about the relevant demands and needs of the students <span class="req">*</span></p>
-                            <div class="rb">
-                                <div class="d-flex gap-md-5 gap-3">
-                                    <label>
-                                        <input type="radio" name="Q1" value="1"/>
-                                        <div class="rb-star" data-value="1">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q5" value="2"/>
-                                        <div class="rb-star" data-value="2">★</div>
-                                    </label>
-
-                                    <label>
-                                        <input type="radio" name="Q5" value="3"/>
-                                        <div class="rb-star" data-value="3">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q5" value="4"/>
-                                        <div class="rb-star" data-value="4">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q5" value="5"/>
-                                        <div class="rb-star" data-value="5">★</div>
-                                    </label>
-                                </div>
-                            </div>
-                    </div>    
-
-                    <div class="question">
-                        <p id="err6">6.   The  college has a clear idea about the relevant demands and needs of the emerging national trends <span class="req">*</span></p>
-                            <div class="rb">
-                                <div class="d-flex gap-md-5 gap-3">
-                                    <label>
-                                        <input type="radio" name="Q6" value="1"/>
-                                        <div class="rb-star" data-value="1">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q6" value="2"/>
-                                        <div class="rb-star" data-value="2">★</div>
-                                    </label>
-
-                                    <label>
-                                        <input type="radio" name="Q6" value="3"/>
-                                        <div class="rb-star" data-value="3">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q6" value="4"/>
-                                        <div class="rb-star" data-value="4">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q6" value="5"/>
-                                        <div class="rb-star" data-value="5">★</div>
-                                    </label>
-                                </div>
-                            </div>
-                    </div>
-
-                    <div class="question">
-                        <p id="err7">7.   The college has clear guidelines on consultancy and community outreach <span class="req">*</span></p>
-                            <div class="rb">
-                                <div class="d-flex gap-md-5 gap-3">
-                                    <label>
-                                        <input type="radio" name="Q7" value="1"/>
-                                        <div class="rb-star" data-value="1">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q7" value="2"/>
-                                        <div class="rb-star" data-value="2">★</div>
-                                    </label>
-
-                                    <label>
-                                        <input type="radio" name="Q7" value="3"/>
-                                        <div class="rb-star" data-value="3">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q7" value="4"/>
-                                        <div class="rb-star" data-value="4">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q7" value="5"/>
-                                        <div class="rb-star" data-value="5">★</div>
-                                    </label>
-                                </div>
-                            </div>
-                    </div>
-                            
-                    <div class="question">
-                        <p id="err8">8.   The College has set policy and mechanism for college / industry collaboration <span class="req">*</span></p>
-                            <div class="rb">
-                                <div class="d-flex gap-md-5 gap-3">
-                                    <label>
-                                        <input type="radio" name="Q8" value="1"/>
-                                        <div class="rb-star" data-value="1">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q8" value="2"/>
-                                        <div class="rb-star" data-value="2">★</div>
-                                    </label>
-
-                                    <label>
-                                        <input type="radio" name="Q8" value="3"/>
-                                        <div class="rb-star" data-value="3">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q8" value="4"/>
-                                        <div class="rb-star" data-value="4">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q8" value="5"/>
-                                        <div class="rb-star" data-value="5">★</div>
-                                    </label>
-                                </div>
-                            </div>
-                    </div>
-
-                    <div class="question">
-                        <p id="err9">9.   The college maintains active institutional linkages with research and academic institutions <span class="req">*</span></p>
-                            <div class="rb">
-                                <div class="d-flex gap-md-5 gap-3">
-                                    <label>
-                                        <input type="radio" name="Q9" value="1"/>
-                                        <div class="rb-star" data-value="1">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q9" value="2"/>
-                                        <div class="rb-star" data-value="2">★</div>
-                                    </label>
-
-                                    <label>
-                                        <input type="radio" name="Q9" value="3"/>
-                                        <div class="rb-star" data-value="3">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q9" value="4"/>
-                                        <div class="rb-star" data-value="4">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q9" value="5"/>
-                                        <div class="rb-star" data-value="5">★</div>
-                                    </label>
-                                </div>
-                            </div>
-                    </div>        
-                    <div class="question">
-                        <p id="err10">10.  The college has institutional set up for community services <span class="req">*</span></p>
-                            <div class="rb">
-                                <div class="d-flex gap-md-5 gap-3">
-                                    <label>
-                                        <input type="radio" name="Q10" value="1"/>
-                                        <div class="rb-star" data-value="1">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q10" value="2"/>
-                                        <div class="rb-star" data-value="2">★</div>
-                                    </label>
-
-                                    <label>
-                                        <input type="radio" name="Q10" value="3"/>
-                                        <div class="rb-star" data-value="3">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q10" value="4"/>
-                                        <div class="rb-star" data-value="4">★</div>
-                                    </label>
-                                    
-                                    <label>
-                                        <input type="radio" name="Q10" value="5"/>
-                                        <div class="rb-star" data-value="5">★</div>
-                                    </label>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-                <h4>Comments</h4>
-                <div>
-                    <div class="question">
-                        <p id="w_feedback">Major weaknesses of the institution that you have observed <span class="req">*</span></p>
-                        <textarea name="weakness_feedback" id="weakness_feedback"></textarea>
-                    </div>
-
-                    <div class="question">
-                        <p id="i_feedback">Your suggestion to improve the learning environment, facilities in the college <span class="req">*</span></p>
-                        <textarea name="improvement_feedback" id="improvement_feedback"></textarea>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-between mt-3">
-                        <a href="#sec-a" type="button" class="btn btn-primary d-flex justify-content-start" onclick="prev()">Previous</a>
-                        <button type="submit" name="submit" class="btn btn-primary d-flex justify-content-end" onclick="validate(event)">Submit</button>
                 </div>
             </div>
         </form>
     </section>
 
 
+    <!-- Validation Script Goes Here -->
     <script>
         
         // Aim others Hide and View
         const aim_radio = document.querySelectorAll('input[name="aim"]');
-
         aim_radio.forEach(radio => {
             radio.addEventListener('change', (event) => {
                 if (document.getElementById('others').checked) {
@@ -591,7 +620,8 @@
                 }
             });
         });
-
+        
+        // Next & Validation Function
         function next(){
             let flag = false;
             
@@ -698,11 +728,14 @@
                 document.getElementById("sec-b").classList.remove("d-none");
             }
         }
+        
+        // Previous Page Navigation Function
         function prev(){
             document.getElementById("sec-a").classList.remove("d-none");
             document.getElementById("sec-b").classList.add("d-none");
         }
 
+        // Final Validation Function
         function validate(event){
             let flag = false;
             let count = 0;
@@ -752,6 +785,7 @@
             const namePattern = /^[a-zA-Z\s]+$/;
             return namePattern.test(name);
         }
+        
         // Phone Number Validation Function
         function validatePhoneNumber(phoneNumber) {
             const phonePattern = /^(?:(?:\+?1\s?)|(?:\+\d{2}\s?))?(?:\d{3})\s?(?:\d{3})\s?(?:\d{4})$/;
@@ -769,6 +803,7 @@
             const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
             return !emailPattern.test(email);
         }
+        
         // Radio Button Check Function
         function isRadioChecked (radioName){
             var radioList=document.getElementsByName(radioName);
@@ -779,6 +814,7 @@
             }
             return false;
         }
+    
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
