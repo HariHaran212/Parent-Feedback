@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Feedback</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body{
+            background-color: rgba(219, 242, 246, 0.866);
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"]
+        {
+            border: none;
+            outline: 0;
+            margin-left: 5%;
+            width: 70%;
+            border-bottom: .5px solid grey;
+        }
+        textarea{
+            border-radius: 5px;
+            border: .5px solid grey;
+            outline: 0;
+            margin-left: 5%;
+            width: 70%;
+        }
+        .sec-b a,
+        input[type="submit"]{
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        h4{
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .rb{
+            margin-left: 50px;
+            margin-top: -20px;
+        }
+        .rb-star {
+            font-size: 2em;
+            color: rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: color 0.3s;
+            /* margin-left: 50px; */
+        }
+
+        .rb-star:hover,
+        .rb-star.checked {
+            color: rgb(235, 209, 18);
+        }
+        .rb input[type="radio"]{
+            /* display: none; */
+        }
+        form{
+            margin: 50px 50px;
+        }
+        .sec-a{
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 1px rgb(172, 172, 172);
+            margin: 0px auto;
+            width:fit-content;
+        }
+        .sec-b{
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 1px rgb(172, 172, 172);
+            margin: 0px auto;
+            width:fit-content;
+        }
+        .sec-a ul{
+            list-style-type: none;
+        }
+        .sec-a input[type="radio"]{
+            margin-right: 8px;
+        }
+        span.req{
+            color: red;
+        }
+        .lft-50{
+            margin-left: 35px;
+        }
+        .rb label{
+            display: flex;
+            /* margin-right: 20px; */
+            /* width: 100px; */
+        }
+        /* @media (max-width : 767px){
+            .rb-star{
+                margin-left: 20px;
+            }
+        } */
+        @media (max-width : 450px){
+            form{
+                margin: 50px 20px;
+                margin-right: 20px;
+            }
+            .lft-50{
+                margin-left: 20px;
+            }
+            .rb{
+                margin-left: 20px;
+            }
+        }
+        @media (max-width : 380px){
+            form{
+                margin: 50px 0px;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const stars = document.querySelectorAll('.rb-star');
+
+            stars.forEach((star) => {
+                star.addEventListener('click', function () {
+                    const value = parseInt(star.dataset.value);
+                    const ratingContainer = star.parentNode.parentNode;
+                    const stars = ratingContainer.querySelectorAll('.rb-star');
+
+                    stars.forEach((s, index) => {
+                        if (index < value) {
+                            s.classList.add('checked');
+                        } else {
+                            s.classList.remove('checked');
+                        }
+                    });
+
+                    // Update the hidden input value (if needed)
+                    const input = ratingContainer.querySelector('input[type="hidden"]');
+                    if (input) {
+                        input.value = value;
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="logo.jpg" alt="" width="75" height="25" class="d-inline-block align-text-top">
+            </a>
+        </div>
+        <div class="container-fluid">
+
+        </div>
+    </nav>
+    
+    <section >
+        <form action="" class="justify-content-center">
+            <div class="sec-a container" id="sec-a">
+                <h4>Part - A</h4>
+                <div class="q" style="background-color: antiquewhite; box-shadow: 1px 1px 1px grey; padding: 20px;">
+                    <p id="p_name">1.	Name of the parent / Guardian <span class="req">*</span></p>
+                    <input type="text" name="parent_name" id="parent_name" placeholder="Enter full name">
+                </div>
+                <div class="q" style="background-color: antiquewhite; box-shadow: 1px 1px 1px grey; padding: 20px; margin-top: 10px;">
+                    <p id="s_name">2.	Name of the Student / Ward enrolled in the college <span class="req">*</span></p>
+                    <input type="text" name="student_name" id="student_name" placeholder="Enter full name">
+                </div>
+                <p>3.  Communication Details</p>
+                <div class="lft-50">
+                    <p id="c_address">Address for Communication <span class="req">*</span></p>
+                    <textarea name="communication_address" id="communication_address"></textarea>
+                    <p id="m_number">Mobile Number <span class="req">*</span></p>
+                    <input type="tel" name="mobile_number" id="mobile_number">
+                    <p id="l_number">Landline Number</p>
+                    <input type="tel" name="landline_number" id="landline_number">
+                    <p id="e_id">E-mail ID (if any)</p>
+                    <input type="email" name="email_id" id="email_id">
+                </div>
+                <p id="aim">4.	The aim / aspirations of your ward after graduation <span class="req">*</span></p>
+                <ul>
+                    <li><label><input type="radio" class="form-check-input" name="aim" value="1"> Employment </label></li>
+                    <li><label><input type="radio" class="form-check-input" name="aim" value="2"> Higher studies </label></li>
+                    <li><label><input type="radio" class="form-check-input" name="aim" value="3"> Own industry </label></li>
+                    <li><label><input type="radio" class="form-check-input" name="aim" value="4"> Govt. Service </label></li>
+                    <li><label><input type="radio" class="form-check-input" name="aim" value="5"> Others </label></li>
+                </ul>
+                <div class="d-flex justify-content-end">
+                    <a href="#sec-b" type="button" class="btn btn-primary" onclick="next()">Next</a>
+                </div>
+            </div>
+            
+            <!-- Part - B -->
+            <div class="sec-b" id="sec-b">
+                <div class="">
+                    <h4>Part - B</h2>
+                    <p>Evaluate the following aspects of the college in terms capacity to provide quality education</p>
+                    <p id="err1">1.   The mission statement is of the college is defined in accordance with social and national context <span class="req">*</span></p>
+                        <div class="rb">
+                            <div class="d-flex gap-md-5 gap-3">
+                                <label>
+                                    <input type="radio" name="Q1" value="1"/>
+                                    <div class="rb-star" data-value="1">★</div>
+                                </label>
+                                
+                                <label>
+                                    <input type="radio" name="Q1" value="2"/>
+                                    <div class="rb-star" data-value="2">★</div>
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="Q1" value="3"/>
+                                    <div class="rb-star" data-value="3">★</div>
+                                </label>
+                                
+                                <label>
+                                    <input type="radio" name="Q1" value="4"/>
+                                    <div class="rb-star" data-value="4">★</div>
+                                </label>
+                                
+                                <label>
+                                    <input type="radio" name="Q1" value="5"/>
+                                    <div class="rb-star" data-value="5">★</div>
+                                </label>
+                            </div>
+                        </div>
+                    <p id="err2">2.   The college website is well designed with easy access to information <span class="req">*</span></p>
+                    <div class="rb">
+                        <div class="d-flex gap-md-5 gap-3">
+                            <input type="radio" name="Q2" value="1"/>
+                            <label for="Q2"><div class="rb-star" data-value="1">★</div></label>
+                            
+                            <input type="radio" name="Q2" value="2"/>
+                            <div class="rb-star" data-value="2">★</div>
+
+                            <input type="radio" name="Q2" value="3"/>
+                            <div class="rb-star" data-value="3">★</div>
+                        
+                            <input type="radio" name="Q2" value="4"/>
+                            <div class="rb-star" data-value="4">★</div>
+                        
+                            <input type="radio" name="Q2" value="5"/>
+                            <div class="rb-star" data-value="5">★</div>
+                        </div>
+                    </div>
+                    <p id="err3">3.   The college is responsive to the needs of the community <span class="req">*</span></p>
+                        <div class="rb">
+                            <div class="d-flex gap-md-5 gap-3">
+                                <input type="radio" name="Q3" value="1"/>
+                                <div class="rb-star" data-value="1">★</div>
+                                
+                                <input type="radio" name="Q3" value="2"/>
+                                <div class="rb-star" data-value="2">★</div>
+
+                                <input type="radio" name="Q3" value="3"/>
+                                <div class="rb-star" data-value="3">★</div>
+                            
+                                <input type="radio" name="Q3" value="4"/>
+                                <div class="rb-star" data-value="4">★</div>
+                            
+                                <input type="radio" name="Q3" value="5"/>
+                                <div class="rb-star" data-value="5">★</div>
+                            </div>
+                        </div>
+                    <p id="err4">4.   The college is responsive to the needs of the market / industry <span class="req">*</span></p>
+                        <div class="rb">
+                            <div class="d-flex gap-md-5 gap-3">
+                                <input type="radio" name="Q4" value="1"/>
+                                <div class="rb-star" data-value="1">★</div>
+                                
+                                <input type="radio" name="Q4" value="2"/>
+                                <div class="rb-star" data-value="2">★</div>
+
+                                <input type="radio" name="Q4" value="3"/>
+                                <div class="rb-star" data-value="3">★</div>
+                            
+                                <input type="radio" name="Q4" value="4"/>
+                                <div class="rb-star" data-value="4">★</div>
+                            
+                                <input type="radio" name="Q4" value="5"/>
+                                <div class="rb-star" data-value="5">★</div>
+                            </div>
+                        </div>
+                    <p id="err5">5.   The college has a clear idea about the relevant demands and needs of the students <span class="req">*</span></p>
+                        <div class="rb">
+                            <div class="d-flex gap-md-5 gap-3">
+                                <input type="radio" name="Q5" value="1"/>
+                                <div class="rb-star" data-value="1">★</div>
+                                
+                                <input type="radio" name="Q5" value="2"/>
+                                <div class="rb-star" data-value="2">★</div>
+
+                                <input type="radio" name="Q5" value="3"/>
+                                <div class="rb-star" data-value="3">★</div>
+                            
+                                <input type="radio" name="Q5" value="4"/>
+                                <div class="rb-star" data-value="4">★</div>
+                            
+                                <input type="radio" name="Q5" value="5"/>
+                                <div class="rb-star" data-value="5">★</div>
+                            </div>
+                        </div>
+                    <p id="err6">6.   The  college has a clear idea about the relevant demands and needs of the emerging national trends <span class="req">*</span></p>
+                        <div class="rb">
+                            <div class="d-flex gap-md-5 gap-3">
+                                <input type="radio" name="Q6" value="1"/>
+                                <div class="rb-star" data-value="1">★</div>
+                                
+                                <input type="radio" name="Q6" value="2"/>
+                                <div class="rb-star" data-value="2">★</div>
+
+                                <input type="radio" name="Q6" value="3"/>
+                                <div class="rb-star" data-value="3">★</div>
+                            
+                                <input type="radio" name="Q6" value="4"/>
+                                <div class="rb-star" data-value="4">★</div>
+                            
+                                <input type="radio" name="Q6" value="5"/>
+                                <div class="rb-star" data-value="5">★</div>
+                            </div>
+                        </div>
+                    <p id="err7">7.   The college has clear guidelines on consultancy and community outreach <span class="req">*</span></p>
+                        <div class="rb">
+                            <div class="d-flex gap-md-5 gap-3">
+                                <input type="radio" name="Q7" value="1"/>
+                                <div class="rb-star" data-value="1">★</div>
+                                
+                                <input type="radio" name="Q7" value="2"/>
+                                <div class="rb-star" data-value="2">★</div>
+
+                                <input type="radio" name="Q7" value="3"/>
+                                <div class="rb-star" data-value="3">★</div>
+                            
+                                <input type="radio" name="Q7" value="4"/>
+                                <div class="rb-star" data-value="4">★</div>
+                            
+                                <input type="radio" name="Q7" value="5"/>
+                                <div class="rb-star" data-value="5">★</div>
+                            </div>
+                        </div>
+                    <p id="err8">8.   The College has set policy and mechanism for college / industry collaboration <span class="req">*</span></p>
+                        <div class="rb">
+                            <div class="d-flex gap-md-5 gap-3">
+                                <input type="radio" name="Q8" value="1"/>
+                                <div class="rb-star" data-value="1">★</div>
+                                
+                                <input type="radio" name="Q8" value="2"/>
+                                <div class="rb-star" data-value="2">★</div>
+
+                                <input type="radio" name="Q8" value="3"/>
+                                <div class="rb-star" data-value="3">★</div>
+                            
+                                <input type="radio" name="Q8" value="4"/>
+                                <div class="rb-star" data-value="4">★</div>
+                            
+                                <input type="radio" name="Q8" value="5"/>
+                                <div class="rb-star" data-value="5">★</div>
+                            </div>
+                        </div>
+                    <p id="err9">9.   The college maintains active institutional linkages with research and academic institutions <span class="req">*</span></p>
+                        <div class="rb">
+                            <div class="d-flex gap-md-5 gap-3">
+                                <input type="radio" name="Q9" value="1"/>
+                                <div class="rb-star" data-value="1">★</div>
+                                
+                                <input type="radio" name="Q9" value="2"/>
+                                <div class="rb-star" data-value="2">★</div>
+
+                                <input type="radio" name="Q9" value="3"/>
+                                <div class="rb-star" data-value="3">★</div>
+                            
+                                <input type="radio" name="Q9" value="4"/>
+                                <div class="rb-star" data-value="4">★</div>
+                            
+                                <input type="radio" name="Q9" value="5"/>
+                                <div class="rb-star" data-value="5">★</div>
+                            </div>
+                        </div>
+                    <p id="err10">10.  The college has institutional set up for community services <span class="req">*</span></p>
+                    <div class="rb">
+                        <div class="d-flex gap-md-5 gap-3">
+                            <input type="radio" name="Q10" value="1"/>
+                            <div class="rb-star" data-value="1">★</div>
+                            
+                            <input type="radio" name="Q10" value="2"/>
+                            <div class="rb-star" data-value="2">★</div>
+
+                            <input type="radio" name="Q10" value="3"/>
+                            <div class="rb-star" data-value="3">★</div>
+                        
+                            <input type="radio" name="Q10" value="4"/>
+                            <div class="rb-star" data-value="4">★</div>
+                        
+                            <input type="radio" name="Q10" value="5"/>
+                            <div class="rb-star" data-value="5">★</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p>II.	Major weaknesses of the institution that you have observed</p>
+                    <textarea name="" id=""></textarea>
+                    <p>III.	Your suggestion to improve the learning environment, facilities in the college</p>
+                    <textarea name="" id=""></textarea>
+                </div>
+                <div class="d-flex justify-content-between mt-3">
+                        <a href="#sec-a" type="button" class="btn btn-primary d-flex justify-content-start" onclick="prev()">Previous</a>
+                        <input type="submit" class="btn btn-primary d-flex justify-content-end" onclick="validate(event)">
+                </div>
+            </div>
+        </form>
+    </section>
+
+
+    <script>
+        document.getElementById('others').addEventListener('click', (element) => document.getElementById('others_line'))
+        function next(){
+            document.getElementById("sec-a").classList.add("d-none");
+            document.getElementById("sec-b").classList.remove("d-none");
+        }
+        function prev(){
+            document.getElementById("sec-a").classList.remove("d-none");
+            document.getElementById("sec-b").classList.add("d-none");
+        }
+        function validate(event){
+            event.preventDefault();
+            flag = false;
+            
+            // Parent Name Validation
+            if(document.getElementById('parent_name').value == "" || !validateName(document.getElementById('parent_name').value)){
+                flag=true;
+                document.getElementById("p_name").style.color="red";
+            }
+            else{
+                document.getElementById("p_name").style.color="black";
+            }
+
+            // Student Name Validation
+            if(document.getElementById('student_name').value == "" || !validateName(document.getElementById('student_name').value)){
+                flag=true;
+                document.getElementById("s_name").style.color="red";
+            }
+            else{
+                document.getElementById("s_name").style.color="black";
+            }
+
+            // Communication Address Validation
+            if(document.getElementById('communication_address').value == ""){
+                flag=true;
+                document.getElementById("c_address").style.color="red";
+            }
+            else{
+                document.getElementById("c_address").style.color="black";
+            }
+
+            // Mobile Number Validation
+            if(document.getElementById('mobile_number').value == "" || validatePhoneNumber(document.getElementById('mobile_number').value)){
+                flag=true;
+                document.getElementById("m_number").style.color="red";
+            }
+            else{
+                document.getElementById("m_number").style.color="black";
+            }
+
+            // Landline Number Validation
+            if(document.getElementById('landline_number').value != ""){
+                if(validatePhoneNumber(document.getElementById('landline_number').value)){
+                    flag=true;
+                    document.getElementById("l_number").style.color="red";
+                }
+                else{
+                    document.getElementById("l_number").style.color="black";
+                }
+            }
+            else{
+                document.getElementById("l_number").style.color="black";
+            }
+
+            // Email ID Validation
+            if(document.getElementById('email_id').value != ""){
+                if(validateEmail(document.getElementById('email_id').value)){
+                    flag=true;
+                    document.getElementById("e_id").style.color="red";
+                }
+                else{
+                    document.getElementById("e_id").style.color="black";
+                }
+            }
+            else{
+                document.getElementById("e_id").style.color="black";
+            }
+
+
+            let qn=['aim','Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10'];
+            let err=["aim","err1","err2","err3","err4","err5","err6","err7","err8","err9","err10"];
+            for(i=0;i<qn.length;i++){
+                if(isRadioChecked(qn[i])==false)
+                {
+                    console.log(i);
+                    document.getElementById(err[i]).style.color="red";
+                    flag=true;
+                }
+                else
+                {
+                    document.getElementById(err[i]).style.color="black";
+                }
+            }
+            if(flag){
+                event.preventDefault();
+            }
+        }
+
+        // Name Validation Fumction
+        function validateName(name){
+            const namePattern = /^[a-zA-Z\s]+$/;
+            console.log(namePattern.test(name));
+            return namePattern.test(name);
+        }
+        // Phone Number Validation Function
+        function validatePhoneNumber(phoneNumber) {
+            const phonePattern = /^(?:(?:\+?1\s?)|(?:\+\d{2}\s?))?(?:\d{3})\s?(?:\d{3})\s?(?:\d{4})$/;
+            return !phonePattern.test(phoneNumber);
+        }
+
+        
+        // Email ID Validation Function
+        function validateEmail(email) {
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            return !emailPattern.test(email);
+        }
+        // Radio Button Check Function
+        function isRadioChecked (radioName){
+            var radioList=document.getElementsByName(radioName);
+            for(var i=0; i<radioList.length;i++){
+                if(radioList[i].checked){
+                    return true;
+                }
+            }
+            return false;
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
+</html>
