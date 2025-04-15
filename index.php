@@ -1,9 +1,189 @@
+<?php
+
+include 'config.php';
+session_start();
+
+
+if (isset($_SESSION['redirected_from_thankyou'])) {
+    unset($_SESSION['redirected_from_thankyou']); 
+    // unset($_SESSION['name']);
+    echo "<script>location.reload();</script>"; // Reload the page
+}
+if (isset($_SESSION['redirected_from_already'])) {
+    unset($_SESSION['redirected_from_already']); 
+    // unset($_SESSION['name']);
+    echo "<script>location.reload();</script>"; // Reload the page
+}
+// if($tableExists){
+       
+//     $check = "SELECT RollNo FROM $tableName WHERE mobile_number = '$number' && email='$email' ";
+//     $resultt=$con->query($check);
+//     if($resultt->num_rows>0)
+//     {
+//         while($row=$resultt->fetch_assoc())
+//         { $currentCount=  1;
+//         }
+//     }
+//     if($currentCount == 1)
+//     { header("Location:Already.html");
+//        exit();
+//     }
+//     }
+$tableName="parent_feedback";
+if (isset($_POST['submit'])) {
+    $s_name= strtoupper($_POST['student_name']);
+    $_SESSION['name']=$s_name;
+    $batch=$_POST['batch'];
+    $number=$_POST['mobile_number'];
+   $_SESSION['mobile']=$number;
+    $tableName="parent_feedback".$batch;
+    $_SESSION['tableName']=$tableName;
+    $checkTableQuery = "SHOW TABLES LIKE '$tableName'";
+    $tableExists = $con->query($checkTableQuery)->num_rows > 0;
+    if (!$tableExists) {$SQL="CREATE TABLE $tableName(
+        parent_name VARCHAR(200) NOT NULL,
+        student_name VARCHAR(200) NOT NULL,
+        batch VARCHAR(100) NOT NULL,
+        address VARCHAR(1000) NOT NULL,
+        mobile_number VARCHAR(15) NOT NULL,
+        landline VARCHAR(30),
+        email VARCHAR(100) NOT NULL ,
+        aim VARCHAR(100) NOT NULL,
+        question1 INT NOT NULL DEFAULT 0,
+        question2 INT NOT NULL DEFAULT 0,
+        question3 INT NOT NULL DEFAULT 0,
+        question4 INT NOT NULL DEFAULT 0,
+        question5 INT NOT NULL DEFAULT 0,
+        question6 INT NOT NULL DEFAULT 0,
+        question7 INT NOT NULL DEFAULT 0,
+        question8 INT NOT NULL DEFAULT 0,
+        question9 INT NOT NULL DEFAULT 0,
+        question10 INT NOT NULL DEFAULT 0,
+        question11 VARCHAR(1000) NOT NULL,
+        question12 VARCHAR(1000) NOT NULL
+    
+        )
+        ";
+    
+    
+    if ($con->query($SQL) === TRUE) {
+    echo "table created";
+    } else {
+      echo "Error creating table: " . $con->error;
+    }
+    
+    }
+    $currentCount=0;
+    if($tableExists){
+       
+        $check = "SELECT mobile_number FROM $tableName WHERE mobile_number = '$number' ";
+        $resultt=$con->query($check);
+        if($resultt->num_rows>0)
+        {
+            while($row=$resultt->fetch_assoc())
+            { $currentCount=  1;
+            }
+        }
+        if($currentCount == 1)
+        { header("Location:Already.php");
+           exit();
+        }
+        }                   
+    
+    if($tableExists)
+    {
+        // echo "table already created"; 
+    }
+    
+
+
+
+    $p_name= strtoupper($_POST['parent_name']);
+    $s_name= strtoupper($_POST['student_name']);
+    $_SESSION['name']=$s_name;
+    $address=$_POST['communication_address'];
+ 
+    $l_number=$_POST['landline_number'];
+    $email=$_POST['email_id'];
+    $aim=$_POST['aim'];
+    if($aim==='')
+    {
+        $aim=$_POST['aim1'];
+    }
+   
+
+    $q1=$_POST['Q1'];
+    $q2=$_POST['Q2'];
+    $q3=$_POST['Q3'];
+    $q4=$_POST['Q4'];
+    $q5=$_POST['Q5'];
+    $q6=$_POST['Q6'];
+
+    $q7=$_POST['Q7'];
+    $q8=$_POST['Q8'];
+    $q9=$_POST['Q9'];
+    $q10=$_POST['Q10'];
+    $q11=$_POST['weakness_feedback'];
+    $q12=$_POST['improvement_feedback'];
+
+    $checkTableQuery = "SHOW TABLES LIKE '$tableName'";
+    $result = $con->query($checkTableQuery);
+    if (!$result) {
+        die("Query failed: " . $con->error);
+    }
+    $tableExists = $result->num_rows > 0;
+    
+
+    if (!$tableExists) {
+        die("Table $tableName does not exist.");
+    }
+    $stmt = $con->prepare("INSERT INTO $tableName (
+        parent_name, student_name, batch, address, mobile_number, 
+        landline, email, aim, 
+        question1, question2, question3, question4, question5, 
+        question6, question7, question8, question9, question10, 
+        question11, question12
+    ) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    
+  
+  
+    if ($stmt === false) {
+        die("Prepare failed: " . $con->error);
+    }
+
+    $stmt->bind_param(
+        "ssssssssiiiiiiiiiiss",
+        $p_name, $s_name, $batch, $address, $number, 
+        $l_number, $email, $aim, 
+        $q1, $q2, $q3, $q4, $q5, 
+        $q6, $q7, $q8, $q9, $q10, 
+        $q11, $q12
+    );
+    
+    if ($stmt->execute()) {
+        header("Location: Thankyou.php");
+        exit();
+    } else {
+        echo "Error: " . $stmt->error; 
+    }
+   
+
+    $stmt->close();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parent Feedback</title>
+    <!-- favicon link moved inside the head -->
+    <link
+      rel="shortcut icon"
+       href="Logo 1.avif"
+      type="image/x-icon"
+    />
     
     <!-- Bootstrap CSS Import -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -114,7 +294,7 @@
 
         /* Others */
         .logo{
-            height: 50px;
+            height: 90px;
             width: auto;
         }
         /* .lft-25{
@@ -164,7 +344,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
         <a class="navbar-brand" href="#">
-            <img src="logo.jpg"  class="logo">
+            <img src="kce.png"  class="logo img-fluid">
         </a>
     </nav>
     
@@ -180,13 +360,13 @@
                         <!-- Question - 1 -->   
                         <div class="question">
                             <p id="p_name">1.	Name of the parent / Guardian <span class="req">*</span></p>
-                            <input type="text" name="parent_name" id="parent_name" placeholder="Enter full name">
+                            <input type="text" class="text-uppercase" name="parent_name" id="parent_name" placeholder="Enter full name">
                         </div>
 
                         <!-- Question - 2 -->   
                         <div class="question">
                             <p id="s_name">2.	Name of the Student / Ward enrolled in the college <span class="req">*</span></p>
-                            <input type="text" name="student_name" id="student_name" placeholder="Enter full name">
+                            <input type="text" class="text-uppercase" name="student_name" id="student_name" placeholder="Enter full name">
                         </div>
 
                         <!-- Question -31 -->   
@@ -227,9 +407,9 @@
                                 <li><label><input type="radio" class="form-check-input" name="aim" value="Higher studies"> Higher studies </label></li>
                                 <li><label><input type="radio" class="form-check-input" name="aim" value="Own industry"> Own industry </label></li>
                                 <li><label><input type="radio" class="form-check-input" name="aim" value="Govt. Service"> Govt. Service </label></li>
-                                <li><label><input type="radio" class="form-check-input" name="aim" id="others"> Others </label></li>
+                                <li><label><input type="radio" class="form-check-input" name="aim" value="" id="others"> Others </label></li>
                             </ul>
-                            <input type="text" id="others_text" name="aim" class="d-none"/>
+                            <input type="text" id="others_text" name="aim1" class="d-none"/>
                         </div>
                         
                         <!-- Next Button -->   
@@ -241,7 +421,7 @@
             </div>
             
             <!-- Part - B -->
-            <div class="sec-b container" id="sec-b">
+            <div class="sec-b container d-none" id="sec-b">
                 <div class="row justify-content-center">
                     <div class="col-xxl-8 col-xl-8 col-lg-10 col-md-10 col-sm-10 col-xs-12">
                         <h4>Part - B</h4>
@@ -387,7 +567,7 @@
                                 <div class="rb">
                                     <div class="d-flex gap-md-5 gap-3 justify-content-center">
                                         <label>
-                                            <input type="radio" name="Q1" value="1"/>
+                                            <input type="radio" name="Q5" value="1"/>
                                             <div class="rb-star" data-value="1">★</div>
                                         </label>
                                         
