@@ -1,1 +1,3 @@
-Live Hosting on: http://hariharan.infy.uk/
+Live Hosting:
+Index Page : http://hariharan.infy.uk/
+Admin Page : http://hariharan.infy.uk/AdminPage.php
